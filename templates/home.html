@@ -1,0 +1,62 @@
+{% extends 'base.html' %} {% block content %}
+       {% if message %}
+         <div class="popup-overlay" >
+
+    <div class="popup-content" style="background-color: #FF7276;">
+        <span class="close-btn" onclick="closePopup()">&times;</span>
+        <h2>{{message}}</h2>
+        <p>{{submessage}}</p>
+    </div>
+         </div>
+    {% endif  %}
+    <div class="container">
+
+        <h1>Welcome to Room Chat</h1>
+
+        <form id="join-form" method="POST">
+            <label for="username">Your Name</label>
+            <div class="form-group">
+
+                <input type="text" id="username" name="name" placeholder="Enter your username" value="{{name}}" required>
+            </div>
+            <label for="room-code">Room Code</label>
+            <div class="form-group">
+
+                <input type="text" id="room-code" name="code" placeholder="Enter room code" value="{{code}}" >
+                <button type="button" class="copy-btn" id="copy-btn" onclick="copyToClipboard()">📋</button>
+            </div>
+            <button type="submit" class="btn" name="join">Join Room</button>
+            <div class="divider">or</div>
+        <button id="create-room-btn" class="btn" name="create" type="submit">Create Room</button>
+        </form>
+
+    </div>
+
+
+    <script>
+    function closePopup() {
+        var popupContent = document.querySelector('.popup-content');
+        popupContent.style.display = 'none';
+    }function copyToClipboard() {
+    // Select the input field
+    var inputField = document.getElementById("room-code");
+
+    // Select its content
+    inputField.select();
+    inputField.setSelectionRange(0, 99999); // For mobile devices
+
+    // Copy the selected content to clipboard
+    document.execCommand("copy");
+
+    // Deselect the input field
+    inputField.setSelectionRange(0, 0);
+
+    // Optionally, provide some visual feedback to the user
+    alert("Copied the text: " + inputField.value);
+}
+
+</script>
+
+
+
+{% endblock %}
